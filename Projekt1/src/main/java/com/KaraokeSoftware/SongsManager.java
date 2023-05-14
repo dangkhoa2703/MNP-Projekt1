@@ -2,6 +2,7 @@ package com.KaraokeSoftware;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class SongsManager {
 
@@ -20,4 +21,5 @@ public class SongsManager {
     public ArrayList<Song> getArtistsSongs(String artistsName){
         return artistsList.get(artistsName);
     }
+    public Set<String> getArtists() {return artistsList.keySet();}
 }

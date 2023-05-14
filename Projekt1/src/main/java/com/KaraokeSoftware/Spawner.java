@@ -1,27 +1,30 @@
 package com.KaraokeSoftware;
 
-import akka.actor.typed.ActorRef;
 import akka.actor.typed.Behavior;
-import akka.actor.typed.javadsl.AbstractBehavior;
-import akka.actor.typed.javadsl.ActorContext;
-import akka.actor.typed.javadsl.Behaviors;
-import akka.actor.typed.javadsl.Receive;
+import akka.actor.typed.javadsl.*;
+
+import java.time.Duration;
+
 
 public class Spawner extends AbstractBehavior<Spawner.Message> {
 
     public interface Message {};
 
-    public record ExampleMessage(ActorRef<AkkaMainSystem.Create> someReference, String someString) implements Message {  }
 
-    public static Behavior<Message> create(String name) {
-        return Behaviors.setup(context -> new Spawner(context, name));
+    public record ExampleMessage(String someString) implements Message {  }
+
+    public static Behavior<Message> create() {
+        return Behaviors.setup(context -> Behaviors.withTimers(timers -> new Spawner(context, timers)));
     }
 
-    private final String name;
+    private final TimerScheduler<Spawner.Message> timers;
 
-    private Spawner(ActorContext<Message> context, String name) {
+    private Spawner(ActorContext<Message> context, TimerScheduler<Spawner.Message> timers) {
         super(context);
-        this.name = name;
+        this.timers = timers;
+
+        Message msg = new ExampleMessage("test123");
+        this.timers.startSingleTimer(msg, msg, Duration.ofSeconds(10));
     }
 
     @Override
@@ -32,7 +35,7 @@ public class Spawner extends AbstractBehavior<Spawner.Message> {
     }
 
     private Behavior<Message> onExampleMessage(ExampleMessage msg) {
-        getContext().getLog().info("I ({}) got a message: ExampleMessage({},{})", this.name, msg.someReference, msg.someString);
+        getContext().getLog().info("I have send myself this message after 10 Seconds: {}", msg.someString);
         return this;
     }
 }
