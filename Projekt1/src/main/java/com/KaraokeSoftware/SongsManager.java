@@ -4,16 +4,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 
+
+/**
+ *  Manage a list of song, can return a list of artists name and their song
+ */
 public class SongsManager {
 
-    private HashMap<String, ArrayList<Song>> artistsList = new HashMap<String, ArrayList<Song>>();
+    private final HashMap<String, ArrayList<Song>> artistsList = new HashMap<>();
 
-    private SongsManager() {};
+    public SongsManager() {}
 
-    public void addSong(String artistsName, String titel, int duration) {
-        Song newSong = new Song(artistsName, titel, duration);
-        if (artistsList.containsKey(artistsName)){
-            artistsList.put(artistsName, new ArrayList<Song>());
+    public void addSong(String artistsName, String title, int duration) {
+        Song newSong = new Song(artistsName, title, duration);
+        if (!artistsList.containsKey(artistsName)){
+            artistsList.put(artistsName, new ArrayList<>());
         }
         artistsList.get(artistsName).add(newSong);
     }

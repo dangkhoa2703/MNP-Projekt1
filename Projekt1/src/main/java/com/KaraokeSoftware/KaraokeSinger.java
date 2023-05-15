@@ -7,21 +7,23 @@ import akka.actor.typed.javadsl.ActorContext;
 import akka.actor.typed.javadsl.Behaviors;
 import akka.actor.typed.javadsl.Receive;
 
-import java.lang.management.PlatformLoggingMXBean;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 
 public class KaraokeSinger extends AbstractBehavior<KaraokeSinger.Message> {
 
-    public interface Message {};
+    public interface Message {}
 
     /*---- Messages, which this class receive ----*/
+
+    // receive a list of all artist
     public record ArtistsListsMessage(Set<String> artists) implements Message{}
 
+    // receive a list of all song of an artist
     public record SongsListMessage(ArrayList<Song> songs) implements Message{}
 
+    // notifying message
     public record StartSingingMessage(Song song) implements Message{}
 
     /*----------------*/
@@ -45,13 +47,14 @@ public class KaraokeSinger extends AbstractBehavior<KaraokeSinger.Message> {
     @Override
     public Receive<Message> createReceive() {
         return newReceiveBuilder()
-                .onMessage(ArtistsListsMessage.class, this::onArtstistsListMessage)
+                .onMessage(ArtistsListsMessage.class, this::onArtistsListMessage)
                 .onMessage(SongsListMessage.class, this::onSongsListMessage)
                 .onMessage(StartSingingMessage.class, this:: onStartSingingMessage)
                 .build();
     }
 
-    private Behavior<Message> onArtstistsListMessage(ArtistsListsMessage msg) {
+    // when receive a list of artist, chose a random artist and ask library a list of all song of this artist
+    private Behavior<Message> onArtistsListMessage(ArtistsListsMessage msg) {
         Random random = new Random();
         String[] artists = msg.artists.toArray(new String[0]);
         String randomArtist = artists[random.nextInt(artists.length)];
@@ -74,7 +77,7 @@ public class KaraokeSinger extends AbstractBehavior<KaraokeSinger.Message> {
         String artist = msg.song.getArtist();
         String title = msg.song.getTitle();
         int duration = msg.song.getDuration();
-        this.getContext().getLog().info("Start singing: {} - {} for {} secong", artist,title,duration);
+        this.getContext().getLog().info("Start singing: {} - {} for {} second", artist,title,duration);
         return this;
     }
 }

@@ -11,8 +11,11 @@ import java.util.Random;
 public class Spawner extends AbstractBehavior<Spawner.Message> {
 
     public interface Message {}
+    //----- Message, which Spawner receive
 
     public record CreateSingerMessage() implements Message {  }
+
+    //-------------
 
     public static Behavior<Message> create( ActorRef<Library.Message> lib, ActorRef<QueueManager.Message> queMan, ActorRef<PlaybackClient.Message> pbClient ) {
         return Behaviors.setup(context -> Behaviors.withTimers(timers -> new Spawner(context, timers, lib, queMan, pbClient )));
@@ -32,13 +35,11 @@ public class Spawner extends AbstractBehavior<Spawner.Message> {
         createSinger();
     }
 
+    // send a message to self after 2-12 second
     private void createSinger(){
         Message msg = new CreateSingerMessage();
         Random r = new Random();
-        int randomNumber = r.nextInt(13);
-        while (randomNumber < 2) {
-            randomNumber = r.nextInt(13);
-        }
+        int randomNumber = r.nextInt(2,13);
         this.timers.startSingleTimer(msg, msg, Duration.ofSeconds(randomNumber));
     }
 
@@ -49,6 +50,8 @@ public class Spawner extends AbstractBehavior<Spawner.Message> {
                 .build();
     }
 
+    // After receive a message from self, Spawner will spawn a KaraokeSinger
+    // and wait for another 2-12 to send a create-singer message to self
     private Behavior<Message> onCreateSingerMessage(CreateSingerMessage msg) {
         this.getContext().spawnAnonymous(KaraokeSinger.create(lib, queMan, pbClient));
         createSinger();
