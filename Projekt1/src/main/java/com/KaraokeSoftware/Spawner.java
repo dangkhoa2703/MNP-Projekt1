@@ -11,7 +11,7 @@ public class Spawner extends AbstractBehavior<Spawner.Message> {
     public interface Message {};
 
 
-    public record ExampleMessage(String someString) implements Message {  }
+    public record CreateSingerMessage() implements Message {  }
 
     public static Behavior<Message> create() {
         return Behaviors.setup(context -> Behaviors.withTimers(timers -> new Spawner(context, timers)));
@@ -23,18 +23,24 @@ public class Spawner extends AbstractBehavior<Spawner.Message> {
         super(context);
         this.timers = timers;
 
-        Message msg = new ExampleMessage("test123");
-        this.timers.startSingleTimer(msg, msg, Duration.ofSeconds(10));
+        Message msg = new CreateSingerMessage();
+
+        Random r = new Random();
+        int randomNumber = r.nextInt(13);
+        while (randomNumber < 2) {
+            randomNumber = r.nextInt(13);
+        }
+        this.timers.startSingleTimer(msg, msg, Duration.ofSeconds(randomNumber));
     }
 
     @Override
     public Receive<Message> createReceive() {
         return newReceiveBuilder()
-                .onMessage(ExampleMessage.class, this::onExampleMessage)
+                .onMessage(CreateSingerMessage.class, this::onCreateSingerMessage)
                 .build();
     }
 
-    private Behavior<Message> onExampleMessage(ExampleMessage msg) {
+    private Behavior<Message> onCreateSingerMessage(CreateSingerMessage msg) {
         getContext().getLog().info("I have send myself this message after 10 Seconds: {}", msg.someString);
         return this;
     }
