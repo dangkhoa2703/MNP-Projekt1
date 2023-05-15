@@ -64,15 +64,15 @@ public class KaraokeSinger extends AbstractBehavior<KaraokeSinger.Message> {
     private Behavior<Message> onSongsListMessage(SongsListMessage msg) {
         Random r = new Random();
         Song song = msg.songs.get(r.nextInt(msg.songs.size()));
-        queMan.tell(new QueueManager.AddSongMessage(song,this.getContext().getSelf(), pbClient));
+        queMan.tell(new QueueManager.AddSongMessage(song,this.getContext().getSelf(),pbClient));
         return this;
     }
 
     private Behavior<Message> onStartSingingMessage(StartSingingMessage msg){
         String artist = msg.song.getArtist();
-        String titel = msg.song.getTitel();
+        String title = msg.song.getTitle();
         int duration = msg.song.getDuration();
-        this.getContext().getLog().info("Start singing: {} - {} for {} secong", artist,titel,duration);
+        this.getContext().getLog().info("Start singing: {} - {} for {} secong", artist,title,duration);
         return this;
     }
 }
