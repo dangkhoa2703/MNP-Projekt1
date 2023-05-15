@@ -14,6 +14,8 @@ public class QueueManager extends AbstractBehavior<QueueManager.Message> {
 
     public interface Message {};
 
+
+
     //---- Types of message, which this class received ----
     public record AddSongMessage(Song song, ActorRef<KaraokeSinger.Message> singer, ActorRef<PlaybackClient.Message> pbClient) implements Message{}
 

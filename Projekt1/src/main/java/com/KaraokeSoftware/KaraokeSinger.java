@@ -68,6 +68,8 @@ public class KaraokeSinger extends AbstractBehavior<KaraokeSinger.Message> {
         return this;
     }
 
+
+
     private Behavior<Message> onStartSingingMessage(StartSingingMessage msg){
         String artist = msg.song.getArtist();
         String title = msg.song.getTitle();

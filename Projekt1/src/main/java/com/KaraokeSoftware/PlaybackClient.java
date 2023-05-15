@@ -11,7 +11,6 @@ public class PlaybackClient extends AbstractBehavior<PlaybackClient.Message> {
 
     public interface Message {};
 
-
     public record PlaySongMessage(Song song, ActorRef<KaraokeSinger.Message> singer) implements Message{}
 
     public record SongFinishedMessage() implements Message{}
@@ -53,6 +52,7 @@ public class PlaybackClient extends AbstractBehavior<PlaybackClient.Message> {
 
     private Behavior<Message> onSongFinishedMessage(SongFinishedMessage msg) {
         queMan.tell(new QueueManager.ReadyMessage(getContext().getSelf()));
+
         return this;
     }
 }

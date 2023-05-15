@@ -11,6 +11,7 @@ public class Library extends AbstractBehavior<Library.Message> {
 
     public interface Message {}
 
+
     public record ListArtistsMessage(ActorRef<KaraokeSinger.Message> singer) implements Message {  }
 
     public record GetSongsMessage(String artistsName, ActorRef<KaraokeSinger.Message> singer) implements Message { }
