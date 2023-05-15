@@ -11,7 +11,7 @@ public class SongsManager {
     private SongsManager() {};
 
     public void addSong(String artistsName, String titel, int duration) {
-        Song newSong = new Song(titel, duration);
+        Song newSong = new Song(artistsName, titel, duration);
         if (artistsList.containsKey(artistsName)){
             artistsList.put(artistsName, new ArrayList<Song>());
         }
