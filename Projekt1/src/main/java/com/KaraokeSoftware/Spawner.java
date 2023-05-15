@@ -10,7 +10,6 @@ public class Spawner extends AbstractBehavior<Spawner.Message> {
 
     public interface Message {};
 
-
     public record CreateSingerMessage() implements Message {  }
 
     public static Behavior<Message> create() {
