@@ -40,7 +40,6 @@ public class Spawner extends AbstractBehavior<Spawner.Message> {
                 .build();
     }
 
-
     private Behavior<Message> onCreateSingerMessage(CreateSingerMessage msg) {
         getContext().getLog().info("I have send myself this message after 10 Seconds: {}", msg.someString);
         return this;
