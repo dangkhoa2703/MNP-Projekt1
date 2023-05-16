@@ -71,7 +71,7 @@ public class QueueManager extends AbstractBehavior<QueueManager.Message> {
             this.getContext().getLog().info("No more song in queue!");
             isReady = true;
         }else{
-            ChosenSong chosenSong = queue.getFirst();
+            ChosenSong chosenSong = queue.remove();
             msg.pbClient.tell(new PlaybackClient.PlaySongMessage(chosenSong.song(),chosenSong.singer()));
             getContext().getLog().info("Next song: {} - {}",chosenSong.song().getArtist(),chosenSong.song().getTitle());
             isReady = false;

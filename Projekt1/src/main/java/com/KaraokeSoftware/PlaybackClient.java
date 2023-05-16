@@ -55,6 +55,7 @@ public class PlaybackClient extends AbstractBehavior<PlaybackClient.Message> {
     // when notifying, that a song is finished,
     // ask QueueManager for the next song
     private Behavior<Message> onSongFinishedMessage(SongFinishedMessage msg) {
+        getContext().getLog().info("Done");
         queMan.tell(new QueueManager.ReadyMessage(getContext().getSelf()));
         return this;
     }
