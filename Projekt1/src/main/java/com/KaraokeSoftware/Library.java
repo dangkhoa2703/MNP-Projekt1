@@ -1,3 +1,10 @@
+/*
+Projekt von:
+
+Dang Khoa Nguyen (214267)
+Lars Klichta (232078)
+ */
+
 package com.KaraokeSoftware;
 
 import akka.actor.typed.ActorRef;
