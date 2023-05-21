@@ -4,6 +4,7 @@ Projekt von:
 Dang Khoa Nguyen (214267)
 Lars Klichta (232078)
 Minh Hieu Le (222117)
+Tran Long Huynh (236582)
  */
 
 package com.KaraokeSoftware;
