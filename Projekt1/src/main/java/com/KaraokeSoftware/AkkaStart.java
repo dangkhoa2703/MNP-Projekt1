@@ -26,8 +26,14 @@ public class AkkaStart {
     songsManager.addSong("Led Zeppelin", "Black Dog",9);
     songsManager.addSong("Led Zeppelin","Immigrant Song",10);
     songsManager.addSong("Eagles","Hotel California", 13);
-    songsManager.addSong("Nivana", "Smells Like Teen Spirit", 10);
+    songsManager.addSong("Eagles","Life in the Fast Lane", 9);
+    songsManager.addSong("Eagles","On the Border", 8);
+    songsManager.addSong("Nirvana", "Smells Like Teen Spirit", 10);
+    songsManager.addSong("Nirvana", "Marigold", 5);
+    songsManager.addSong("Nirvana", "Jesus doesn't want me for a Sunbeam", 9);
     songsManager.addSong("Lynyrd Skynyrd", "Free Bird", 15);
+    songsManager.addSong("Lynyrd Skynyrd", "If I'm wrong", 11);
+    songsManager.addSong("Lynyrd Skynyrd", "Sweet Home Alabama", 7);
     songsManager.addSong("AC/DC","Back In Black", 5);
     songsManager.addSong("AC/DC","Thunderstruck",7);
     songsManager.addSong("AC/DC","T.N.T",8);
@@ -35,10 +41,11 @@ public class AkkaStart {
     songsManager.addSong("Gun n' Roses","November Rain",15);
     songsManager.addSong("Gun n' Roses","Welcome To The Jungle",8);
     songsManager.addSong("Rainbow","Stargazer",15);
+    songsManager.addSong("Rainbow","In Love",6);
+    songsManager.addSong("Rainbow","I surrender",7);
     songsManager.addSong("John Denver","Country Roads", 4);
-    songsManager.addSong("Israel \"IZ\" Kamakawiwo", "Some Where Over The Rainbow",8 );
-    songsManager.addSong("a-ha", "Take On Me", 9);
-    songsManager.addSong("George Michael", "Careless whisper",10);
+    songsManager.addSong("John Denver","Calypso", 7);
+    songsManager.addSong("John Denver","Goodbye Again", 8);
 
     final ActorSystem<AkkaMainSystem.Create> messageMain = ActorSystem.create(AkkaMainSystem.create(songsManager), "akkaMainSystem");
 
